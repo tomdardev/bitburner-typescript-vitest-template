@@ -1,0 +1,25 @@
+{
+  "name": "bitburner-typescript-vitest-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "author": "tomdardev",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "defs": "node updateDefs.cjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
+    "bitburner-ts": "^1.1.8",
+    "chokidar": "^4.0.3",
+    "eslint": "^9.23.0",
+    "typescript": "^5.4.2",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.9",
+    "vitest-mock-extended": "^3.0.1",
+    "vitest-tsconfig-paths": "^3.4.1"
+  }
+}
