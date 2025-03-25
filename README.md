@@ -1,64 +1,62 @@
-# Typescript template for Bitburner's Remote File API
+# Typescript Template for syncing files to Bitburner (with vitest support)
 
-The official template for synchronizing Typescript/Javascript from your computer to the game.
-
-[Step by step install](BeginnersGuide.md)
-
-[Learn more about Typescript](https://www.typescriptlang.org/docs/)
+Since I wasn't satisfied with the [official bitburner typescript template](https://github.com/bitburner-official/typescript-template), I customized my own setup with support for vitest. 
 
 ## About
 
-This template uses the Typescript compiler and the Remote File API system to synchronize Typescript to your game.
-Due to the usage of the RFA system, it works with Web and Electron versions of the game.
+This template provides an easy setup to code bitburner scripts in Typescript and have them automatically synced to the game.
+
+Additionally, it has vitest set up such that you can easily write your own tests for scripts.
 
 ## Prerequisites
 
-[Node.js](https://nodejs.org/en/download/) is needed for compiling typescript and installing dependencies
-
-[See here for step by step installation](BeginnersGuide.md) if you'd like help with installing Node and/or connecting to the game.
+* [Node.js](https://nodejs.org/en/download/) & a node package manager
 
 ## Quick start
 
-Download the template to your computer and install everything it requires:
+Clone the template and use the package manager of your choice to install:
 ```
-git clone https://github.com/bitburner-official/typescript-template
-cd typescript-template
+git clone https://github.com/tomdardev/bitburner-typescript-vitest-template
+cd bitburner-typescript-vitest-template
 npm i
 ```
 
-### How to use this template
+Afterward, you might want to run the following command to update the typescript definition of the bitburner API to the latest.
+```
+npm run defs
+```
 
-Write all your typescript source code in the `/src` directory
+### Coding in this template
 
-To autocompile and send changed files as you save, run `npm run watch` in a terminal.
-Have it running in the background so that it all happens automatically.
+Write all your typescript source code in the `/src` directory.
 
-For Bitburner to receive any files, you need to enter the port `npm run watch` logs to the terminal
-in the Remote API section of the game settings, and press the connect button.
+For syncing changes to bitburner, this repo uses [bitburner-ts](https://github.com/ftzi/bitburner-ts).
 
-[See here for step by step installation](BeginnersGuide.md) if you'd like help with installing Node and/or connecting to the game.
+To use, run `npx bitburner-ts`, this will monitor the `/src` directory for any code changes and automatically compile code to javascript and sync it to the game. .
 
 ## Advanced
 ### Imports
 
 To ensure both the game and typescript have no issues with import paths, your import statements should follow a few formatting rules:
 
-- Paths must be absolute from the root of `src/`, which will be equivalent to the root directory of your home drive
+- Paths must be absolute from the root, this will be converted into the equivalent to the root directory of your home drive in the game. i.e. `src/example.ts` will end up directly in the root directory. Imports will be automatically converted to match. 
 - Paths must contain no leading slash
 - Paths must end with no file extension
+
+Generally speaking this is already defined in the shipped `tsconfig.json` and most IDEs should adopt these imports automatically based on that.
 
 #### Examples:
 
 To import `helperFunction` from the file `helpers.ts` located in the directory `src/lib/`:
 
 ```js
-import { helperFunction } from "lib/helpers";
+import { helperFunction } from "src/lib/helpers";
 ```
 
 To import all functions from the file `helpers.ts` located in the `src/lib/` directory as the namespace `helpers`:
 
 ```js
-import * as helpers from "lib/helpers";
+import * as helpers from "src/lib/helpers";
 ```
 
 To import `someFunction` from the file `main.ts` located in the `src/` directory:
@@ -67,6 +65,10 @@ To import `someFunction` from the file `main.ts` located in the `src/` directory
 import { someFunction } from "main";
 ```
 
-### Debugging
+### Testing
+This repo is preconfigured such that you can write & run vitest tests denominated with the file ending `.test.ts`.
+An example of this can be found in [example.test.ts](/src/example.test.ts).
 
-For debugging bitburner on Steam you will need to enable a remote debugging port. This can be done by rightclicking bitburner in your Steam library and selecting properties. There you need to add `--remote-debugging-port=9222` [Thanks @DarkMio]
+You may run tests via `npm run test` which will monitor the directory and test your code on change.  
+
+For more information on how to write vitests, refer to https://vitest.dev/guide/.

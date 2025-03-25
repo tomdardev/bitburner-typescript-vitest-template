@@ -1,6 +1,6 @@
 import {describe, test, expect} from "vitest";
 import {exampleFunction} from "src/example";
-import {mock, MockProxy} from "vitest-mock-extended";
+import {mock} from "vitest-mock-extended";
 import {NS, Server} from "../NetscriptDefinitions";
 
 const serverExample: Server = {
